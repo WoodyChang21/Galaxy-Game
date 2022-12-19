@@ -1,0 +1,51 @@
+#: import menu menu
+#: import rank rank
+
+MainWidget:
+
+<MainWidget>:
+    canvas.before:
+        Rectangle:
+            size: self.size
+            source: 'images/bg1.jpg'
+
+    #These are attributes define in MainWidget class
+    #It can be used in kv file as well
+    menu_widget: menu_widget
+    rank_widget: rank_widget
+    bestscore: bestscore
+    current_score: current_score
+    rank_state: False
+    binding_opacity_button_disabled: self.rank_widget.opacity
+
+    #in kv file the binding (call back happend automatically)
+    #Therefore
+        # 1. The size of the screen changed when the screen pops out
+            # 1.1 self.width, self.height is changed whenever the size has changed
+        # 2. Properties perspective_point_x and perspective_point_y changes
+            # 2.2 This triggers the on_perspective_point_x (call back function) on_perspective_point_y (call back function)
+    perspective_point_x: self.width/2
+    perspective_point_y: self.height * 0.75
+
+    MenuWidget:
+    #We create id so the id can stand as the obejct of MenuWidget
+        id: menu_widget
+
+    Label:
+        id: current_score
+        text: "SCORE: " + str(root.score_txt)
+        font_name:"C:\\Users\\User\\Desktop\\Python Project\\font\\Eurostile.ttf"
+        font_size: "30dp"
+        size_hint: .2,.2
+        pos_hint: {"x":0, "top":1}
+
+    Label:
+        id: bestscore
+        text: "BEST SCORE: " + str(root.bestscore_txt)
+        font_name:"C:\\Users\\User\\Desktop\\Python Project\\font\\Eurostile.ttf"
+        font_size: "30dp"
+        size_hint: .2,.2
+        pos_hint: {"right":.95, "top":1}
+    
+    RankWidget:
+        id: rank_widget
